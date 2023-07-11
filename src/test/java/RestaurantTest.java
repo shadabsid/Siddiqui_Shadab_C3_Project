@@ -56,6 +56,41 @@ class RestaurantTest {
 
     //<<<<<<<<<<<<<<<<<<<<<<<<<OPEN/CLOSED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    //<<<<<<<<<<<<<<<<<<<<<<<<<ORDER TOTAL>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void order_total_with_no_items_should_return_0() throws itemNotFoundException {
+        LocalTime openingTime = LocalTime.parse("10:30:00");
+        LocalTime closingTime = LocalTime.parse("22:00:00");
+        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+        String[] itemNames = {""};
+        assertEquals(0,restaurant.getOrderValue(itemNames));
+    }
+
+    @Test
+    public void order_total_with_1_items_should_return_price_of_that_item() throws itemNotFoundException {
+        LocalTime openingTime = LocalTime.parse("10:30:00");
+        LocalTime closingTime = LocalTime.parse("22:00:00");
+        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant.addToMenu("Sweet corn soup",119);
+        String[] itemNames = {"Sweet corn soup"};
+        assertEquals(119,restaurant.getOrderValue(itemNames));
+    }
+
+    @Test
+    public void order_total_with_4_items_should_return_price_of_all_items() throws itemNotFoundException {
+        LocalTime openingTime = LocalTime.parse("10:30:00");
+        LocalTime closingTime = LocalTime.parse("22:00:00");
+        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+        restaurant.addToMenu("Ginger Tea",50);
+        restaurant.addToMenu("Vanilla Ice Cream", 100);
+        String[] itemNames = {"Sweet corn soup", "Vegetable lasagne", "Ginger Tea", "Vanilla Ice Cream"};
+        assertEquals(538,restaurant.getOrderValue(itemNames));
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<<<ORDER TOTAL>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Test
